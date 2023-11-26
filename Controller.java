@@ -23,25 +23,55 @@ public class Controller {
     }
 
 
+    SET_NAME,
+    ADD_RADIO_DISH,
+    REMOVE_RADIO_DISH,
+    GENERATE_MESSAGE,
+    BEGIN,
+    LISTEN,
+    CALIBRATE,
+    RESTART
     public boolean processInput(Command command){
-
+        switch (command) {
+            case ADD_RADIO_DISH:
+                // ...
+                return addDish();
+            case REMOVE_RADIO_DISH:
+                return removeDish();
+            case RESTART:
+                restart();
+                break;
+            default:
+                return false;
+        }
     }
 
     private void initiateListening(){
-
     }
 
 
-    private void changeUsername(String inName){
-
+    public void changeUsername(String inName){
     }
 
     private boolean removeDish(){
-
     }
 
     private boolean addDish(){
+    }
 
+    /**
+     * Requests a reset of the Research Station from the Model.
+     * @return true of successful reset, false otherwise
+     */
+    private boolean restart(){
+        model.resetResearchStation();
+    }
+
+    /**
+     * Requeests a generated message from the Model.
+     * @return the generated message
+     */
+    public String generateMessage(){
     }
 
 
