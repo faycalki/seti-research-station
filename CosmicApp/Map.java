@@ -28,7 +28,7 @@ public class Map<K, V> implements MapADT<K, V> {
      * @param <K> the associated key
      * @param <V> the associated value
      */
-    private static class Entry<K, V> {
+    protected static class Entry<K, V> {
         K key;
         V value;
 

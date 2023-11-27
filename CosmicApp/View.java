@@ -15,6 +15,11 @@ public class View {
 
     private int currentMessagePosition = 0; // To keep track of the current position in the generated message
 
+    private String generatedMessage;
+    private int totalMessageLength;
+    private int numOfGuesses = 0;
+
+    private Map<String, StringBuilder> interpretedStrings;
     public View(Controller controller){
     this.controller = controller;
     this.scanner = new Scanner(System.in);
@@ -79,6 +84,8 @@ public class View {
             System.out.println("5. Start Game");
             System.out.println("6. Quit");
 
+
+
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -97,6 +104,11 @@ public class View {
                 case "5":
                     System.out.println("Game configuration complete. Starting the game!");
                     controller.generateMessage();
+                    generatedMessage = getGeneratedMessage();
+                    currentMessagePosition = 0;
+                    numOfGuesses = 0;
+                    totalMessageLength = generatedMessage.length();
+                    interpretedStrings = new Map<String, StringBuilder>();
                     displayTurn();
                     return;
                 case "6":
@@ -175,6 +187,8 @@ public class View {
         System.out.println("2. Guess the phrase");
         System.out.println("3. Give Up");
 
+
+
         String choice = scanner.nextLine();
 
         switch (choice) {
@@ -184,11 +198,11 @@ public class View {
                 displayTurnPhaseTwo(selectedStation);
                 break;
             case "2":
-                guess();
                 if (guess() == true){
                     configureGame();
+                    break;
                 }
-                break;
+                displayTurn();
             case "3":
                 System.out.println("You gave up. Returning to the main menu.");
                 break;
@@ -250,10 +264,11 @@ public class View {
     }
 
     private boolean guess() {
+        numOfGuesses++;
         System.out.print("Enter your guess: ");
         String userGuess = scanner.nextLine();
         if (userGuess.equals(getGeneratedMessage())) {
-            System.out.println("You've guessed correctly! The message was indeed " + getGeneratedMessage());
+            System.out.println("You've guessed correctly! The message was indeed " + getGeneratedMessage() + "You've guessed " + numOfGuesses + "number of times for this message!");
             return true;
         } else {
             System.out.println("Incorrect guess. The game continues...");
@@ -264,23 +279,93 @@ public class View {
     private void interpretMessagePerCharacter(ResearchStation<String, RadioDish> station) {
         String generatedMessage = getGeneratedMessage();
 
-        for (int i = currentMessagePosition; i < generatedMessage.length(); i++) {
+        for (int i = currentMessagePosition; i < totalMessageLength; i++) {
             char currentCharacter = generatedMessage.charAt(i);
-            //System.out.println("Interpretation for Character '" + currentCharacter + "':");
-            displayInterpretations(station, currentCharacter);
+            displayInterpretations(station, currentCharacter, i + 1);
             currentMessagePosition++; // Move to the next character in the next turn
-            return;
+            return; // end turn
         }
     }
 
-    private void displayInterpretations(ResearchStation<String, RadioDish> station, char currentCharacter) {
+    private void displayInterpretations(ResearchStation<String, RadioDish> station, char currentCharacter, int currentPosition) {
         ArrayList<String> keys = station.getAllRadioDishes();
 
         for (String key : keys) {
             RadioDish radioDish = station.getRadioDish(key);
             char interpretedChar = radioDish.receive(currentCharacter);
-            System.out.println("Radio Dish '" + key + "': " + interpretedChar);
+
+            // Get the interpreted string for the radio dish or initialize it if necessary
+            StringBuilder interpretedString = interpretedStrings.get(key);
+            if (interpretedString == null) {
+                interpretedString = new StringBuilder();
+                interpretedStrings.put(key, interpretedString);
+            }
+
+            // Update the interpreted string for the radio dish
+            if (currentCharacter == ' ') {
+                interpretedString.append(' ');
+            } else {
+                interpretedString.append(interpretedChar);
+            }
         }
+
+//            // Check if the interpreted word is correct and reveal it in the hint
+//            if (getGeneratedMessage().contains(interpretedString.toString())) {
+//                revealWordInHint(interpretedString.toString(), currentPosition);
+//            }
+//        }
+
+        // Display overall progress
+        displayOverallProgress(currentPosition);
+    }
+
+    private void revealWordInHint(String word, int currentPosition) {
+        StringBuilder interpretedStringLength = new StringBuilder();
+
+        for (int j = 0; j < currentPosition; j++) {
+            char c = getGeneratedMessage().charAt(j);
+            if (c == ' ' || word.contains(interpretedStringLength.toString())) {
+                interpretedStringLength.append(getGeneratedMessage().charAt(j));
+            } else {
+                interpretedStringLength.append('#');
+            }
+        }
+
+        System.out.println("Interpretation hint: " + interpretedStringLength.toString());
+        System.out.println("Progress: [" + repeatCharacter('#', currentPosition) + repeatCharacter('-', totalMessageLength - currentPosition) + "]");
+    }
+
+
+    private void displayOverallProgress(int currentPosition) {
+        StringBuilder interpretedStringLength = new StringBuilder();
+
+        for (int j = 0; j < currentPosition; j++) {
+            char c = getGeneratedMessage().charAt(j);
+            if (c == ' '){
+                interpretedStringLength.append(getGeneratedMessage().charAt(j));
+            }
+            else{
+                interpretedStringLength.append('#');
+            }
+        }
+
+        System.out.println("Interpretation hint: " + interpretedStringLength.toString());
+        System.out.println("Progress: [" + repeatCharacter('#', currentPosition) + repeatCharacter('-', totalMessageLength - currentPosition) + "]");
+
+        for (String radioDishKey : interpretedStrings.getKeys()) {
+            StringBuilder interpretedString = interpretedStrings.get(radioDishKey);
+
+            System.out.println("Radio Dish '" + radioDishKey + "': " + interpretedString.toString());
+        }
+
+    }
+
+    private String repeatCharacter(char character, int times) {
+        StringBuilder repeatedString = new StringBuilder();
+        for (int i = 0; i < times; i++) {
+            repeatedString.append(character);
+        }
+        return repeatedString.toString();
     }
 
     public String promptForChoice() {
