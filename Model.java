@@ -235,7 +235,7 @@ public class Model {
 
 
     public char initiateListening() {
-
+    return 'a';
     }
 
 

@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * @param <K> the key used by the compression function to access the appropriate index
  * @param <V> the value associated with the key
  */
-public class Map<K, V> implements MapADT<K, V> {
+public class Map<K, V> implements
+        MapADT<K, V> {
     private static final int INITIAL_CAPACITY = 131; // Initial size of the array. This should be a prime number in order to prevent degenerative infinite loops when using some forms of probing.
 
     private int capacity = INITIAL_CAPACITY;
