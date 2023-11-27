@@ -10,7 +10,7 @@ import java.util.Random;
 public class RadioDish {
 
     private boolean calibrating;
-    private double calibration;
+    private double calibration = 100.0;
 
     private String name;
 
@@ -48,7 +48,7 @@ public class RadioDish {
         if (calibration <= 0) {
             this.calibration = 0;
         }
-        else if (calibration >= 100){
+        else if (calibration > 100){
             this.calibration = 100;
         }
         else {

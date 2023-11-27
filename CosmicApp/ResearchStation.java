@@ -14,7 +14,7 @@ public class ResearchStation<K, V> {
 
     private String name;
 
-    private double stationCalibration;
+    private double stationCalibration = 100.0;
 
 
 

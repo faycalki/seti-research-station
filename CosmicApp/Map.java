@@ -94,7 +94,7 @@ public class Map<K, V> implements MapADT<K, V> {
      * @return the output of the hashing function and compression function, typically also called the hash.
      */
     private int processForHashTable(K key){
-        int hash = hashingFunction(key);
+        int hash = Math.abs(hashingFunction(key)); // prevent negative hashes due to overflow
         return compressionFunction(hash);
     }
 

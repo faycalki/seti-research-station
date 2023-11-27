@@ -196,35 +196,26 @@ public class View {
         displayInfo(station);
         System.out.println("1. Fix Calibration of a particular radio dish"); // fix calibration of a particular radio dish by 20% a turn
         System.out.println("2. Interpret Message through this station"); // attempt to interpret a message by every radio dish in this station
+        System.out.println("3. Return to Overview to select a different station");
         System.out.println("9. Give up");
 
         String choice = scanner.nextLine();
 
         switch (choice) {
             case "1":
-                displayInfo(station);
-                break;
-            case "2":
-                // logic to fix calibration
                 fixCalibration(station);
                 break;
-            case "3":
-                // logic to interpret message
+            case "2":
                 interpretMessage(station);
                 break;
-            case "4":
+            case "3":
+                displayTurnPhaseOne();
+                break;
+            case "9":
                 System.out.println("You gave up on this attempt. Returning to the configuration screen.");
                 break;
             default:
                 System.out.println("Invalid choice. Please enter a valid option.");
-        }
-
-        // Give option to return to overview map (to pick another station)
-        System.out.println("5. Return to Overview");
-        String returnChoice = scanner.nextLine();
-
-        if ("3".equals(returnChoice)) {
-            displayTurnPhaseOne();
         }
     }
 
