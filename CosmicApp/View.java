@@ -206,6 +206,10 @@ public class View {
             case "3":
                 System.out.println("You gave up. Returning to the main menu.");
                 break;
+            case "secret":
+                System.out.println("The secret phrase is: " + generatedMessage);
+                displayTurnPhaseOne();
+                break;
             default:
                 System.out.println("Invalid choice. Please enter a valid option.");
         }
@@ -238,6 +242,7 @@ public class View {
                 break;
             case "9":
                 System.out.println("You gave up on this attempt. Returning to the configuration screen.");
+                System.out.println("The generated message was: " + getGeneratedMessage());
                 break;
             default:
                 System.out.println("Invalid choice. Please enter a valid option.");
@@ -268,7 +273,7 @@ public class View {
         System.out.print("Enter your guess: ");
         String userGuess = scanner.nextLine();
         if (userGuess.equals(getGeneratedMessage())) {
-            System.out.println("You've guessed correctly! The message was indeed " + getGeneratedMessage() + "You've guessed " + numOfGuesses + "number of times for this message!");
+            System.out.println("You've guessed correctly! The message was indeed " + getGeneratedMessage() + ". " + "\n" + "You've guessed " + numOfGuesses + " number of times in total!");
             return true;
         } else {
             System.out.println("Incorrect guess. The game continues...");
