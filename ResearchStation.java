@@ -5,9 +5,6 @@
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 
 public class ResearchStation<K, V> {
@@ -15,50 +12,10 @@ public class ResearchStation<K, V> {
     private Map<String, RadioDish> radioDishes;
     private RadioDishNames chooseDishName = RadioDishNames.ALPHA;
 
-    private static final List<String> scientificWords = Arrays.asList(
-            "quantum", "cosmic", "nebula", "singularity", "graviton", "dark matter", "quasar", "hyperspace", "antimatter", "resonance",
-            "xenon", "radiation", "luminosity", "extraterrestrial", "entanglement", "aether", "pulsar", "spectral", "heliopause", "parallax",
-            "entropy", "astronomy", "biochemistry", "biophysics", "botany", "cellular", "chemistry", "cryogenics", "geophysics", "genetics",
-            "mathematics", "microbiology", "nanoscience", "oceanography", "optics", "particle", "physics", "psychophysics", "radiobiology", "seismology",
-            "thermodynamics", "astrophysics", "biotechnology", "cosmology", "cybernetics", "ecology", "electromagnetic", "magnetism", "meteorology", "neuroscience",
-            "nuclear", "palaeontology", "parasitology", "pharmacology", "psychology", "quantum mechanics", "scientific", "taxonomy", "virology", "zoology",
-            "isotope", "proton", "neutron", "electron", "cosmonaut", "anatomy", "baryon", "big bang", "black hole", "climate change",
-            "cloning", "dark energy", "doppler effect", "electron microscope", "fermentation", "fission", "fusion", "genome", "gravitational", "Hawking radiation",
-            "Higgs boson", "light-year", "molecule", "mutation", "Newton's laws", "orbit", "photon", "quantum entanglement", "radiation therapy", "Schrodinger's cat",
-            "solar flare", "string theory", "superconductor", "theory of relativity", "thermal expansion", "vaccine", "antibiotic", "zero gravity", "photosynthesis", "ecosystem",
-            "genetic mutation", "organic chemistry", "symbiosis", "element", "DNA", "RNA", "homeostasis", "cytoplasm", "nucleus", "mitochondria"
-            // 100 words in total
-    );
+    private String name;
 
+    private double stationCalibration;
 
-    private static final List<String> technologicalWords = Arrays.asList(
-            "nanotechnology", "cybernetic", "biomechanics", "teleportation", "augmented reality", "genetic engineering", "robotics", "AI",
-            "quantum computing", "exoskeleton", "neural interface", "bionics", "synthetic biology", "cybersecurity", "hyperspectral imaging",
-            "telecommunication", "biorobotics", "virtual reality", "nanorobotics", "bioinformatics",
-            "algorithm", "automation", "cloud computing", "cryptocurrency", "data mining", "drones", "machine learning", "nanomedicine", "photonics", "radiotechnology",
-            "space exploration", "supercomputing", "telemedicine", "wearable technology", "3D printing", "biometric", "blockchain", "internet of things", "smart grid", "quantum cryptography",
-            "wireless charging", "augmented intelligence", "autonomous vehicles", "biometric authentication", "brain-machine interface", "cryptographic key", "decentralized", "digital twin", "edge computing", "fog computing",
-            "genomic data", "hydrogen fuel cells", "intelligent agents", "laser cutting", "mixed reality", "neuromorphic", "optical computing", "quantum key distribution", "resistive random access memory", "self-driving",
-            "smart home", "smart materials", "virtual assistant", "wireless mesh network", "zero-day attack", "ambient intelligence", "bio-hacking", "cloud robotics", "quantum dot display", "quantum sensor",
-            "adaptive cybersecurity", "affective computing", "ambient computing", "augmented analytics", "blockchain as a service", "brain-computer interface", "cognitive computing", "collective intelligence", "conversational AI", "cryptographic hash function",
-            "cryptocurrency wallet", "decentralized finance", "digital identity", "edge analytics", "edge device", "encryption", "extended reality", "federated learning", "fintech", "holographic display", "homomorphic encryption"
-            // 100 words in total
-    );
-
-
-    private static final List<String> mysteriousWords = Arrays.asList(
-            "enigma", "cryptic", "abyss", "anomaly", "cryptogram", "sibylline", "occult", "esoteric", "enigmatic", "oracle",
-            "mystify", "serendipity", "whimsical", "conundrum", "paradox", "arcane", "metaphysical", "ethereal", "cipher", "portal",
-            "astrology", "divination", "eschatology", "mysticism", "parapsychology", "phenomenon", "premonition", "psychic", "surreptitious", "telepathy",
-            "transcendental", "unearthly", "cryptid", "fortuneteller", "hallucination", "levitation", "mirage", "occultism", "phantasm", "revelation",
-            "spiritualism", "supernatural", "telekinesis", "teleportation", "clairvoyance", "cryptozoology", "dowsing", "extrasensory", "ghost", "haunting",
-            "illusion", "levitate", "mystical", "necromancy", "omen", "poltergeist", "psychometry", "sorcery", "specter", "witchcraft",
-            "alchemy", "apport", "astral", "bewitch", "coven", "curse", "divine", "enchant", "goblin", "hex",
-            "illusionist", "incantation", "jinx", "magic", "oracle", "potion", "quiver", "rune", "seance", "shaman",
-            "spell", "spirit", "talisman", "trance", "vampire", "voodoo", "wand", "warlock", "wicca", "wizard",
-            "zombie", "changeling", "sorcerer", "sorceress", "spellbound", "spellcaster", "abracadabra", "amulet", "arcane", "bewitched"
-            // 100 words in total
-    );
 
 
 
@@ -66,9 +23,15 @@ public class ResearchStation<K, V> {
      * Constructs a Research Station
      */
     ResearchStation(){
+        this.stationCalibration = 100.0;
         radioDishes = new Map<String, RadioDish>();
     }
 
+    ResearchStation(String inString){
+        this.stationCalibration = 100.0;
+        radioDishes = new Map<String, RadioDish>();
+        name = inString;
+    }
 
     /**
      * Adds a Radio Dish to the Research Station with a legal name as a key.
@@ -123,46 +86,85 @@ public class ResearchStation<K, V> {
         return radioDishes.getKeys();
     }
 
+    public RadioDish getRadioDish(String key){
+        return radioDishes.get(key);
+    }
+
+
     /**
-     * Generates a random three-word phrase based on a number of pre-determined choices of several flavours.
-     * @return the generated phrase
+     * Prints out the current information of the station
      */
-    private String generateMessage() {
-        String scientificWord = getRandomWord(scientificWords);
-        String technologicalWord = getRandomWord(technologicalWords);
-        String mysteriousWord = getRandomWord(mysteriousWords);
+    public void getStationInfo() {
+        System.out.println("Research Station: " + getName());
+        System.out.println("Calibration Level: " + getStationCalibration());
 
-        int randomOrder = new Random().nextInt(6); // Number of permutations we want
+        System.out.println("Radio Dishes:");
+        ArrayList<String> radioDishesKeys = getAllRadioDishes();
+        for (String radioDish : radioDishesKeys) {
+            double calibration = getCalibrationForRadioDish(radioDishes.get(radioDish));
+            System.out.println("- " + radioDish + ": " + calibration);
+        }
 
-        switch (randomOrder) {
-            case 0:
-                return scientificWord + " " + technologicalWord + " " + mysteriousWord;
-            case 1:
-                return scientificWord + " " + mysteriousWord + " " + technologicalWord;
-            case 2:
-                return technologicalWord + " " + scientificWord + " " + mysteriousWord;
-            case 3:
-                return technologicalWord + " " + mysteriousWord + " " + scientificWord;
-            case 4:
-                return mysteriousWord + " " + scientificWord + " " + technologicalWord;
-            case 5:
-                return mysteriousWord + " " + technologicalWord + " " + scientificWord;
-            default:
-                // This should not happen
-                return "";
+        System.out.println(); // Add a newline for better readability
+    }
+
+    private double getCalibrationForRadioDish(RadioDish inDish){
+        return inDish.getCalibration();
+    }
+
+
+    /**
+     * Retrieves the station's calibration
+     * @return the level of the station's calibration
+     */
+    public double getStationCalibration(){
+        double numberOfDishes = 0.0;
+        double sum = 0.0;
+        for (String dishName: getAllRadioDishes()){
+            numberOfDishes++;
+            sum = sum + radioDishes.get(dishName).getCalibration();
+        }
+        return sum / numberOfDishes;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String stationName) {
+        this.name = stationName;
+    }
+
+    public void setStationCalibration(double stationCalibration) {
+        this.stationCalibration = stationCalibration;
+    }
+
+    /**
+     * Re-calibrates the lowest calibrated radio dish in the station
+     */
+    public void fixCalibration() {
+        ArrayList<String> radioDishesKeys = getAllRadioDishes();
+
+        if (!radioDishes.isEmpty()) {
+            String lowestCalibratedDish = radioDishesKeys.get(0);
+            double lowestCalibration = radioDishes.get(lowestCalibratedDish).getCalibration();
+
+            // Find the lowest calibrated radio dish
+            for (String dishKey : radioDishesKeys) {
+                double currentCalibration = radioDishes.get(dishKey).getCalibration();
+                if (currentCalibration < lowestCalibration) {
+                    lowestCalibration = currentCalibration;
+                    lowestCalibratedDish = dishKey;
+                }
+            }
+
+            // Recalibrate the lowest calibrated radio dish
+            radioDishes.get(lowestCalibratedDish).setCalibrating(true); // this'll invoke a 20% increase per turn
+
+            System.out.println("Calibating radio dish" + lowestCalibratedDish);
+        } else {
+            System.out.println("No radio dishes in the station to fix calibration.");
         }
     }
-
-    /**
-     * Chooses a random word from a List.
-     * @param wordList the list of words to choose from
-     * @return the chosen random word.
-     */
-    private String getRandomWord(List<String> wordList) {
-        Random random = new Random();
-        int index = random.nextInt(wordList.size());
-        return wordList.get(index);
-    }
-
-
 }

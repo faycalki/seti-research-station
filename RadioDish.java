@@ -83,11 +83,18 @@ public class RadioDish {
             return '#';
         }
         else if (getCalibration() >= calibrationRequired){
+            Double reduction = random.nextDouble(0, 20.0); // inclusive of lower bound, exclusive of upper bound.
+            setCalibration(getCalibration() - reduction);
             return inChar;
         }
         else{
+            Double reduction = random.nextDouble(0, 20.0); // inclusive of lower bound, exclusive of upper bound.
+            setCalibration(getCalibration() - reduction);
             return '#';
         }
+
+
+
 
     }
 
