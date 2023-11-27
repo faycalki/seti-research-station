@@ -162,7 +162,7 @@ public class ResearchStation<K, V> {
             // Recalibrate the lowest calibrated radio dish
             radioDishes.get(lowestCalibratedDish).setCalibrating(true); // this'll invoke a 20% increase per turn
 
-            System.out.println("Calibating radio dish" + lowestCalibratedDish);
+            System.out.println("Calibating radio dish " + lowestCalibratedDish);
         } else {
             System.out.println("No radio dishes in the station to fix calibration.");
         }

@@ -13,6 +13,8 @@ public class View {
     private Controller controller;
     private Scanner scanner;
 
+    private int currentMessagePosition = 0; // To keep track of the current position in the generated message
+
     public View(Controller controller){
     this.controller = controller;
     this.scanner = new Scanner(System.in);
@@ -170,7 +172,8 @@ public class View {
     public void displayTurnPhaseOne() {
         displayAllInfo();
         System.out.println("1. Choose a Research Station");
-        System.out.println("2. Give Up");
+        System.out.println("2. Guess the phrase");
+        System.out.println("3. Give Up");
 
         String choice = scanner.nextLine();
 
@@ -181,6 +184,12 @@ public class View {
                 displayTurnPhaseTwo(selectedStation);
                 break;
             case "2":
+                guess();
+                if (guess() == true){
+                    configureGame();
+                }
+                break;
+            case "3":
                 System.out.println("You gave up. Returning to the main menu.");
                 break;
             default:
@@ -204,9 +213,11 @@ public class View {
         switch (choice) {
             case "1":
                 fixCalibration(station);
+                displayTurn();
                 break;
             case "2":
-                interpretMessage(station);
+                interpretMessagePerCharacter(station);
+                displayTurn();
                 break;
             case "3":
                 displayTurnPhaseOne();
@@ -238,13 +249,37 @@ public class View {
         System.out.println("Sent calibration order to station " + station.getName());
     }
 
-    private String interpretMessage(ResearchStation<String, RadioDish> station) {
-        System.out.print("Enter your interpretation: ");
+    private boolean guess() {
+        System.out.print("Enter your guess: ");
         String userGuess = scanner.nextLine();
         if (userGuess.equals(getGeneratedMessage())) {
-            return "You've guessed correctly! The message was indeed " + getGeneratedMessage();
+            System.out.println("You've guessed correctly! The message was indeed " + getGeneratedMessage());
+            return true;
         } else {
-            return "Incorrect guess. The game continues...";
+            System.out.println("Incorrect guess. The game continues...");
+            return false;
+        }
+    }
+
+    private void interpretMessagePerCharacter(ResearchStation<String, RadioDish> station) {
+        String generatedMessage = getGeneratedMessage();
+
+        for (int i = currentMessagePosition; i < generatedMessage.length(); i++) {
+            char currentCharacter = generatedMessage.charAt(i);
+            //System.out.println("Interpretation for Character '" + currentCharacter + "':");
+            displayInterpretations(station, currentCharacter);
+            currentMessagePosition++; // Move to the next character in the next turn
+            return;
+        }
+    }
+
+    private void displayInterpretations(ResearchStation<String, RadioDish> station, char currentCharacter) {
+        ArrayList<String> keys = station.getAllRadioDishes();
+
+        for (String key : keys) {
+            RadioDish radioDish = station.getRadioDish(key);
+            char interpretedChar = radioDish.receive(currentCharacter);
+            System.out.println("Radio Dish '" + key + "': " + interpretedChar);
         }
     }
 

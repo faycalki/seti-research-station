@@ -36,6 +36,7 @@ public enum RadioDishNames {
 
     public String getDishName() {
         String dishName = name() + "-" + suffixCounter;
+        incrementSuffix();
         return dishName;
     }
 
