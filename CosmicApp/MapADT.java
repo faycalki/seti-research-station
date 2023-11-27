@@ -1,9 +1,11 @@
+package CosmicApp;
+
 import java.util.ArrayList;
 
 /**
  * 
  * Interface to define the interface that represents the
- * generic behavior of a Map object.
+ * generic behavior of a CosmicApp.Map object.
  * 
  * Implementations of this interface serve as a structure
  * that uses objects of type K as key objects to access
@@ -58,7 +60,7 @@ public interface MapADT <K, V>
     /**
      * 
      * Function that retrieves a list of all of
-     * the keys currently being used in this Map
+     * the keys currently being used in this CosmicApp.Map
      * to link to values.
      * 
      */

@@ -1,3 +1,5 @@
+package CosmicApp;
+
 public enum Command {
     SET_NAME,
     ADD_RADIO_DISH,

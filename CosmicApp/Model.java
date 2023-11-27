@@ -1,10 +1,12 @@
+package CosmicApp;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Holds the logic of the data and performs operations on it. Takes orders from Controller, and communicates the progress to Controller.
+ * Holds the logic of the data and performs operations on it. Takes orders from CosmicApp.Controller, and communicates the progress to CosmicApp.Controller.
  * @author Faycal Kilali
  * @version 1.0
  */

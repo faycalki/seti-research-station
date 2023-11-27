@@ -1,3 +1,5 @@
+package CosmicApp;
+
 import java.util.Random;
 
 /**

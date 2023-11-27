@@ -1,3 +1,5 @@
+package CosmicApp;
+
 /**
  * A enumeration of all the legal radio dish names.
  * A Suffix should be added to each one, per iteration, to differentiate them if there is more than one per same call-sign.

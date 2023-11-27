@@ -1,7 +1,9 @@
+package CosmicApp;
+
 import java.util.ArrayList;
 
 /**
- * This class strictly communicates between the View and the Model, as well as vice versa.
+ * This class strictly communicates between the CosmicApp.View and the CosmicApp.Model, as well as vice versa.
  * @author Faycal Kilali
  * @version 1.0
  */
@@ -20,7 +22,7 @@ public class Controller {
     }
 
     /**
-     * Constructs a Controller object with an appropriate Model and View object relation
+     * Constructs a CosmicApp.Controller object with an appropriate CosmicApp.Model and CosmicApp.View object relation
      * @param inView the view object to be in relation with
      * @param inModel the model object to be in relation with
      */
@@ -74,7 +76,7 @@ public class Controller {
     }
 
     /**
-     * Orders Model to remove a Dish
+     * Orders CosmicApp.Model to remove a Dish
      * @return true if successful, false otherwise.
      */
     private boolean removeDish(){
@@ -83,7 +85,7 @@ public class Controller {
     }
 
     /**
-     * Orders Model to add a Dish
+     * Orders CosmicApp.Model to add a Dish
      * @return true if successful, false otherwise
      */
     private boolean addDish(){
@@ -100,7 +102,7 @@ public class Controller {
 
 
     /**
-     * Requests a reset of the Research Station from the Model.
+     * Requests a reset of the Research Station from the CosmicApp.Model.
      * @return true of successful reset, false otherwise
      */
     private boolean reset(){
@@ -109,7 +111,7 @@ public class Controller {
     }
 
     /**
-     * Requests a generated message from the Model.
+     * Requests a generated message from the CosmicApp.Model.
      * @return the generated message
      */
     public String generateMessage(){
@@ -117,7 +119,7 @@ public class Controller {
     }
 
     /**
-     * Requeests the last generated message from the Model
+     * Requeests the last generated message from the CosmicApp.Model
      * @return the generated message
      */
     public String getGeneratedMessage(){
@@ -125,8 +127,8 @@ public class Controller {
     }
 
     /**
-     * Retrieves the Model
-     * @return the Model
+     * Retrieves the CosmicApp.Model
+     * @return the CosmicApp.Model
      */
     public Model getModel(){
         return model;

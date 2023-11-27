@@ -1,4 +1,4 @@
-/**
+package CosmicApp; /**
  * Representation of a Research Station with control of Radio Dishes
  * @author Faycal Kilali
  * @version 1.0

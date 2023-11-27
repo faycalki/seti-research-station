@@ -1,9 +1,11 @@
+package CosmicApp;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * This is currently a terminal-based implementation of a video game where one has to guess the generated phrase. The game progresses in turns, where each radio dish attempts to interpret the message based on the calibration rules provided.
  * The turns have various rules that make the game interesting and unique. In the future, a GUI interface may be implemented.
- * The View communicates strictly with Controller only, back and forth.
+ * The CosmicApp.View communicates strictly with CosmicApp.Controller only, back and forth.
  * @author Faycal Kilali
  * @version 1.0
  */

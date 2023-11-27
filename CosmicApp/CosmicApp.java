@@ -1,5 +1,7 @@
+package CosmicApp;
+
 /**
- * This class is the main entry-point of the program. It assigns the relations for the modular pieces of View, Controller, and Model, and packages the program.
+ * This class is the main entry-point of the program. It assigns the relations for the modular pieces of CosmicApp.View, CosmicApp.Controller, and CosmicApp.Model, and packages the program.
  */
 
 public class CosmicApp {
@@ -24,9 +26,10 @@ public class CosmicApp {
 
         // Start the main game loop
         while (true) {
+            view.promptForUsername();
             view.configureGame();
             //view.displayTurn();
-           // Command choice = Command.valueOf(view.promptForChoice());
+           // CosmicApp.Command choice = CosmicApp.Command.valueOf(view.promptForChoice());
            // controller.processInput(choice);
         }
     }

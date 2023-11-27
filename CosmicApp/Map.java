@@ -1,4 +1,7 @@
+package CosmicApp;
+
 import java.util.ArrayList;
+import CosmicApp.MapADT;
 
 /**
  * A HashMap Implementation using an Array as the underlying Data Structure and buckets chaining through ArrayLists
@@ -8,8 +11,7 @@ import java.util.ArrayList;
  * @param <K> the key used by the compression function to access the appropriate index
  * @param <V> the value associated with the key
  */
-public class Map<K, V> implements
-        MapADT<K, V> {
+public class Map<K, V> implements MapADT<K, V> {
     private static final int INITIAL_CAPACITY = 131; // Initial size of the array. This should be a prime number in order to prevent degenerative infinite loops when using some forms of probing.
 
     private int capacity = INITIAL_CAPACITY;
@@ -228,7 +230,7 @@ public class Map<K, V> implements
 
     /**
      * Function that retrieves a list of all of
-     * the keys currently being used in this Map
+     * the keys currently being used in this CosmicApp.Map
      * to link to values.
      * @return an ArrayList of keys
      */
