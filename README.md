@@ -66,10 +66,6 @@ Embark on this interstellar adventure where precision meets strategic thinking, 
 
 Feel free to contribute to these exciting developments and shape the future of the SETI Research Station Manager!
 
-## Credits
-
-This project is made possible by the contributions of Faycal Kilali. Faycal Kilali has played a key role in shaping the vision and development of the SETI Research Station Manager.
-
 ## License
 
 This project is licensed under the [GNU General Public License (GPL)](LICENSE). See the [LICENSE](LICENSE) file for details.
